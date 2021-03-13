@@ -14,6 +14,7 @@ import android.view.View;
 
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
 
 import java.util.LinkedList;
 
@@ -21,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     private final LinkedList<String> mWordList = new LinkedList<>();
     private RecyclerView mRecyclerView;
     private WordListAdapter mAdapter;
+    private EditText ed;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,25 +31,30 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        ed = (EditText)findViewById(R.id.etText);
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int wordListSize = mWordList.size();
-                // Add a new word to the wordList.
-                mWordList.addLast("+ Word " + wordListSize);
-                // Notify the adapter, that the data has changed.
-                mRecyclerView.getAdapter().notifyItemInserted(wordListSize);
-                // Scroll to the bottom.
-                mRecyclerView.smoothScrollToPosition(wordListSize);
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
+//                int wordListSize = mWordList.size();
+//                // Add a new word to the wordList.
+//                mWordList.addLast("+ Word " + wordListSize);
+//                // Notify the adapter, that the data has changed.
+//                mRecyclerView.getAdapter().notifyItemInserted(wordListSize);
+//                // Scroll to the bottom.
+//                mRecyclerView.smoothScrollToPosition(wordListSize);
+////                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+////                        .setAction("Action", null).show();
+                int wordSize = mWordList.size();
+                mWordList.addLast(ed.getText().toString());
+                mRecyclerView.getAdapter().notifyItemInserted(wordSize);
+                mRecyclerView.smoothScrollToPosition(wordSize);
             }
         });
 
-        for (int i = 0; i< 20; i++){
-            mWordList.addLast("Word " + i);
-        }
+//        for (int i = 0; i< 20; i++){
+//            mWordList.addLast("Word " + i);
+//        }
         // Get a handle to the RecyclerView.
         mRecyclerView = findViewById(R.id.recyclerview);
 // Create an adapter and supply the data to be displayed.
